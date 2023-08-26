@@ -11,7 +11,6 @@ const links = [
 
 const CategoriesMenu = () => {
     const pathname = usePathname()
-    console.log(pathname)
 
     return (
         <aside className="flex flex-col gap-3">

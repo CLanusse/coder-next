@@ -1,15 +1,16 @@
 import { NextResponse } from "next/server"
-import { mockData } from "@/data/products"
+import { collection, getDocs, query } from "firebase/firestore"
+import { db } from "@/firebase/config"
 
-const sleep = (timer) => {
-    return new Promise((resolve) => setTimeout(resolve, timer))
-}
-
-export async function GET(request, { params }) {
+export async function GET(_, { params }) {
     const { categoria } = params
-    const data = categoria === 'todos' ? mockData : mockData.filter(item => item.type === categoria)
+    const productosRef = collection(db, "productos")
+    const q = categoria === 'todos' 
+                ? productosRef
+                : query(productosRef, where('type', '==', categoria))
+    const querySnapshot = await getDocs(q)
 
-    await sleep(3000)
+    const docs =  querySnapshot.map(doc => doc.data())
 
-    return NextResponse.json(data)
+    return NextResponse.json(docs)
 }

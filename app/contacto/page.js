@@ -1,3 +1,4 @@
+import ContactForm from "@/components/contacto/ContactForm";
 
 export default function Contacto() {
 
@@ -9,7 +10,7 @@ export default function Contacto() {
                 </h1>
                 
                 <hr/>
-                <p>Página de contacto</p>
+                <ContactForm/>
             </main>
         </>
     )

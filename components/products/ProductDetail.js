@@ -1,16 +1,18 @@
-import { mockData } from "@/data/products"
 import Image from "next/image"
 import QtySelector from "./QtySelector"
 import GoBack from "../ui/GoBack"
 
-
-
-const ProductDetail = ({ slug }) => {
-    const item = mockData.find(p => p.slug === slug)
+const ProductDetail = async ({ slug }) => {
+    const item = await fetch(`http://localhost:3000/api/product/${slug}`, {
+        cache: 'no-store',
+        next: {
+            revalidate: 0
+        }
+    }).then(res => res.json())
 
     return (
         <div className="max-w-4xl m-auto">
-            <GoBack className="text-sm text-blue-500 underline mb-6"/>
+            <GoBack className="text-sm text-blue-500 underline mb-6" />
             <section className="flex gap-6">
                 <div className="relative basis-1/2">
                     <Image
@@ -24,7 +26,7 @@ const ProductDetail = ({ slug }) => {
                     <h2 className="text-2xl font-semibold border-b border-gray-200 pb-4 mb-4">{item.title}</h2>
                     <p className="text-4xl">$ {item.price}</p>
 
-                    <QtySelector item={item}/>
+                    <QtySelector item={item} />
                 </div>
             </section>
             <section className="mt-12">

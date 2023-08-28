@@ -3,10 +3,20 @@ import ProductsList from "@/components/products/ProductsList"
 import { Suspense } from "react"
 
 export async function generateMetadata({params, searchParams}, parent) {
-
     return {
         title: `CoderApp - ${params.categoria}`,
     }
+}
+
+export const revalidate = 3600
+
+export async function generateStaticParams() {
+    return [
+        { categoria: 'todos' },
+        { categoria: 'tvs' },
+        { categoria: 'heladeras' },
+        { categoria: 'aires' },
+    ]
 }
 
 const Productos = ({params}) => {

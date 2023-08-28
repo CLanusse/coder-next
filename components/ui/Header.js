@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import CartWidget from './CartWidget'
 
 const links = [
     {
@@ -50,6 +51,8 @@ const Header = () => {
                             </Link>
                         })                        
                     }
+
+                    <CartWidget />
                 </nav>
             </div>
         </header>

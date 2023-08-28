@@ -9,7 +9,7 @@ export async function GET(request, { params }) {
     const { categoria } = params
     const data = categoria === 'todos' ? mockData : mockData.filter(item => item.type === categoria)
 
-    await sleep(1000)
+    await sleep(3000)
 
     return NextResponse.json(data)
 }

@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server"
-import { collection, getDocs, query } from "firebase/firestore"
+import { collection, getDocs, query, where } from "firebase/firestore"
 import { db } from "@/firebase/config"
 
 export async function GET(_, { params }) {
@@ -10,7 +10,7 @@ export async function GET(_, { params }) {
                 : query(productosRef, where('type', '==', categoria))
     const querySnapshot = await getDocs(q)
 
-    const docs =  querySnapshot.map(doc => doc.data())
-
+    const docs = querySnapshot.docs.map(doc => doc.data())
+    console.log(docs)
     return NextResponse.json(docs)
 }

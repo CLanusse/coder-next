@@ -6,7 +6,7 @@ const CartItem = ({item}) => {
     return (
         <li className="shadow flex justify-between items-center max-w-xl gap-6 p-4 my-4">
             <Image
-                src={`/imgs/products/${item.image}`}
+                src={item.image}
                 alt={item.title}
                 width={80}                
                 height={80}                

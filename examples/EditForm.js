@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import Boton from "../ui/Boton"
+import Boton from "../components/ui/Boton"
 import { db } from "@/firebase/config"
 import { doc, updateDoc } from "firebase/firestore"
 

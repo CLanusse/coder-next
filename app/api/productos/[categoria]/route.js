@@ -11,6 +11,6 @@ export async function GET(_, { params }) {
     const querySnapshot = await getDocs(q)
 
     const docs = querySnapshot.docs.map(doc => doc.data())
-    console.log(docs)
+
     return NextResponse.json(docs)
 }

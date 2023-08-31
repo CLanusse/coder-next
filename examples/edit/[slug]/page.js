@@ -1,4 +1,4 @@
-import EditForm from "@/components/admin/EditForm"
+import EditForm from "@/examples/EditForm"
 
 const EditPage = async ({params}) => {
     const { slug } = params

@@ -1,6 +1,6 @@
 "use client"
-import { auth } from "@/firebase/config"
-import { signOut, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth"
+import { auth, provider } from "@/firebase/config"
+import { signInWithPopup, signOut, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth"
 import { createContext, useContext, useEffect, useState } from "react"
 
 const AuthContext = createContext()
@@ -24,6 +24,10 @@ export const AuthProvider = ({children}) => {
 
     const logout = async () => {
         await signOut(auth)
+    }
+
+    const googleLogin = async () => {
+        await signInWithPopup(auth, provider)
     }
 
     useEffect(() => {
@@ -50,7 +54,8 @@ export const AuthProvider = ({children}) => {
             user,
             registerUser,
             loginUser,
-            logout
+            logout,
+            googleLogin
         }}>
             {children}
         </AuthContext.Provider>

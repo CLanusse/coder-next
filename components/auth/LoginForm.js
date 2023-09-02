@@ -4,7 +4,7 @@ import Boton from "../ui/Boton"
 import { useAuthContext } from "../context/AuthContext"
 
 const LoginForm = () => {
-    const { registerUser, loginUser } = useAuthContext()
+    const { registerUser, loginUser, googleLogin } = useAuthContext()
     const [values, setValues] = useState({
         email: '',
         password: ''
@@ -45,6 +45,7 @@ const LoginForm = () => {
                 />
                 <Boton onClick={() => loginUser(values)} className="mr-4">Ingresar</Boton>
                 <Boton onClick={() => registerUser(values)}>Registrarme</Boton>
+                <Boton onClick={googleLogin} className="mt-2 block">Ingresar con Google</Boton>
             </form>
         </div>
     )

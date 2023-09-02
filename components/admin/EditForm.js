@@ -1,19 +1,28 @@
 "use client"
 
 import { useState } from "react"
-import Boton from "../components/ui/Boton"
-import { db } from "@/firebase/config"
+import Boton from "../ui/Boton"
+import { db, storage } from "@/firebase/config"
 import { doc, updateDoc } from "firebase/firestore"
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage"
 
-const updateProduct = async (item, values) => {
-    const docRef = doc(db, "productos", item.slug)
+const updateProduct = async (slug, values, file) => {
+    let fileURL = values.image
+
+    if (file) {
+        const storageRef = ref(storage, values.slug)
+        const fileSnapshot = await uploadBytes(storageRef, file)
+        fileURL = await getDownloadURL(fileSnapshot.ref)
+    }
+
+    const docRef = doc(db, "productos", slug)
     return updateDoc(docRef, {
         title: values.title,
         description: values.description,
         inStock: Number(values.inStock),
         price: Number(values.price),
         type: values.type,
-        image: values.image
+        image: fileURL
     })
         .then(() => console.log("Producto actualizado correctamente"))
 }
@@ -22,6 +31,7 @@ const updateProduct = async (item, values) => {
 const EditForm = ({ item }) => {
     const { title, description, inStock, price, type, image } = item
     const [values, setValues] = useState({ title, description, inStock, price, type, image })
+    const [file, setFile] = useState(null)
 
     const handleChange = (e) => {
         setValues({
@@ -33,7 +43,7 @@ const EditForm = ({ item }) => {
     const handleSubmit = async (e) => {
         e.preventDefault()
 
-        await updateProduct(item, values)
+        await updateProduct(item.slug, values, file)
     }
 
     return (
@@ -47,6 +57,13 @@ const EditForm = ({ item }) => {
                     className="p-2 rounded w-full border border-blue-100 block my-4"
                     name="title"
                     onChange={handleChange}
+                />
+
+                <label>Imagen: </label>
+                <input
+                    type="file"
+                    onChange={(e) => setFile(e.target.files[0])}
+                    className="p-2 rounded w-full border border-blue-100 block my-4"
                 />
 
                 <label>Precio: </label>
@@ -94,29 +111,3 @@ const EditForm = ({ item }) => {
 }
 
 export default EditForm
-
-
-// import { storage } from "@/firebase/config"
-// import { ref, uploadBytes, getDownloadURL } from "firebase/storage"
-// const EditForm = ({slug}) => {
-//     const [file,setFile] = useState(null)
-
-
-//     const handleSend = () => {
-//         const storageRef = ref(storage, slug)
-
-//         uploadBytes(storageRef,file)
-//             .then(({ref}) => {
-//                 getDownloadURL(ref)
-//                 .then(console.log)
-//             })
-//     }
-
-//     return (
-//         <div>
-//             <input type="file" onChange={(e) => setFile(e.target.files[0])}/>
-
-//             <button onClick={handleSend}>enviar</button>
-//         </div>
-//     )
-// }

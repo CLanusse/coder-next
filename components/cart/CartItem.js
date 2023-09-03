@@ -1,7 +1,9 @@
+import { useCartContext } from "../context/CartContext"
 import Boton from "../ui/Boton"
 import Image from "next/image"
 
 const CartItem = ({item}) => {
+    const {removeItem} = useCartContext()
 
     return (
         <li className="shadow flex justify-between items-center max-w-xl gap-6 p-4 my-4">
@@ -17,7 +19,7 @@ const CartItem = ({item}) => {
                 <p className="text-sm">Cantidad: {item.quantity}</p>
             </div>
 
-            <Boton className="bg-red-600">
+            <Boton onClick={() => removeItem(item.slug)} className="bg-red-600">
                 <Image
                     src={'/icons/trash-icon.svg'}
                     alt="Trash icon"

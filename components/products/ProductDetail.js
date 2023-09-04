@@ -3,7 +3,7 @@ import QtySelector from "./QtySelector"
 import GoBack from "../ui/GoBack"
 
 const ProductDetail = async ({ slug }) => {
-    const item = await fetch(`http://localhost:3000/api/product/${slug}`, {
+    const item = await fetch(`https://${process.env.VERCEL_URL}/api/product/${slug}`, {
         cache: 'no-store'
     }).then(res => res.json())
 

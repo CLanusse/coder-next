@@ -33,7 +33,7 @@ const ProductsTable = async () => {
                     <tbody>
                         {
                             items.map((item) => (
-                                <tr>
+                                <tr key={item.slug}>
                                     <td className="p-2">{item.title}</td>
                                     <td className="p-2">{item.price}</td>
                                     <td className="p-2">{item.inStock}</td>

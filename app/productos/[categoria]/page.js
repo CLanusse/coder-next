@@ -10,14 +10,14 @@ export async function generateMetadata({params, searchParams}, parent) {
 
 export const revalidate = 3600
 
-export async function generateStaticParams() {
-    return [
-        { categoria: 'todos' },
-        { categoria: 'tvs' },
-        { categoria: 'heladeras' },
-        { categoria: 'aires' },
-    ]
-}
+// export async function generateStaticParams() {
+//     return [
+//         { categoria: 'todos' },
+//         { categoria: 'tvs' },
+//         { categoria: 'heladeras' },
+//         { categoria: 'aires' },
+//     ]
+// }
 
 const Productos = ({params}) => {
     const { categoria } = params

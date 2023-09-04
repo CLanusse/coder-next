@@ -2,11 +2,6 @@
 import Boton from "@/components/ui/Boton"
 import { useRouter } from "next/navigation"
 
-export const metadata = {
-    title: 'Nosotros - Coder App',
-    description: 'Conoce nuestra historia'
-}
-
 export default function Nosotros() {
     const router = useRouter()
 

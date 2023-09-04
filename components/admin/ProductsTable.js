@@ -1,11 +1,21 @@
 import Link from "next/link"
 import Image from "next/image"
+import { db } from "@/firebase/config"
+import { collection, getDocs, query, where } from "firebase/firestore"
 
+const getProducts = async (categoria = 'todos') => {
+    const productosRef = collection(db, "productos")
+    const q = categoria === 'todos' 
+                ? productosRef
+                : query(productosRef, where('type', '==', categoria))
+    const querySnapshot = await getDocs(q)
+
+    const docs = querySnapshot.docs.map(doc => doc.data())
+    return docs
+}
 
 const ProductsTable = async () => {
-    const items = await fetch(`http://${process.env.VERCEL_URL}/api/productos/todos`, {
-        cache: 'no-store',
-    }).then(r => r.json())
+    const items = await getProducts()
 
     return (
         <>
